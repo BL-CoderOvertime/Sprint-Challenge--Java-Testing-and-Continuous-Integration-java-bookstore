@@ -1,12 +1,9 @@
 package com.lambdaschool.starthere.services;
 
 import com.lambdaschool.starthere.models.Author;
-import com.lambdaschool.starthere.models.User;
-import com.lambdaschool.starthere.models.UserRoles;
 import com.lambdaschool.starthere.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +19,9 @@ public class AuthorServiceImpl implements AuthorService{
 
 
     @Override
-    public List<Author> findAll() {
+    public List<Author> findAll(Pageable pageable) {
         List<Author> list = new ArrayList<>();
-        authorrepos.findAll().iterator().forEachRemaining(list::add);
+        authorrepos.findAll(pageable).iterator().forEachRemaining(list::add);
         return list;
     }
 
