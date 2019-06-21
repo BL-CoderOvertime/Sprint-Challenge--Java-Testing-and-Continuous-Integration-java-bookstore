@@ -57,4 +57,12 @@ public class Author {
     public void setFname(String fname) {
         this.fname = fname;
     }
+
+    public List<Wrote> getWrote() {
+        return wrote;
+    }
+
+    public void setWrote(List<Wrote> wrote) {
+        this.wrote = wrote;
+    }
 }

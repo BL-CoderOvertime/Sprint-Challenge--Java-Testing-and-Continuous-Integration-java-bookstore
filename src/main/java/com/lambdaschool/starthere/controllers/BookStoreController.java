@@ -1,7 +1,9 @@
 package com.lambdaschool.starthere.controllers;
 
 import com.lambdaschool.starthere.models.Author;
+import com.lambdaschool.starthere.models.Book;
 import com.lambdaschool.starthere.services.AuthorService;
+import com.lambdaschool.starthere.services.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,26 @@ public class BookStoreController {
     @Autowired
     AuthorService authorService;
 
+    @Autowired
+    BookService bookService;
+
     @GetMapping(value = "/authors", produces = {"application/json"})
     public ResponseEntity<?> listAllAuthors(HttpServletRequest request)
     {
         logger.trace(request.getRequestURI() + " accessed");
 
-        List<Author> allQuotes = authorService.findAll();
-        return new ResponseEntity<>(allQuotes, HttpStatus.OK);
+        List<Author> allAuthors = authorService.findAll();
+        return new ResponseEntity<>(allAuthors, HttpStatus.OK);
+    }
+
+
+    @GetMapping(value = "/books", produces = {"application/json"})
+    public ResponseEntity<?> listAllBooks(HttpServletRequest request)
+    {
+        logger.trace(request.getRequestURI() + " accessed");
+
+        List<Book> allBooks = bookService.findAll();
+        return new ResponseEntity<>(allBooks, HttpStatus.OK);
     }
 
 }

@@ -81,4 +81,12 @@ public class Book {
     public void setSectionid(int sectionid) {
         this.sectionid = sectionid;
     }
+
+    public List<Wrote> getWrote() {
+        return wrote;
+    }
+
+    public void setWrote(List<Wrote> wrote) {
+        this.wrote = wrote;
+    }
 }
