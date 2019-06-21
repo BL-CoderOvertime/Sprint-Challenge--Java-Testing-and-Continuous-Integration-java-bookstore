@@ -1,6 +1,10 @@
 package com.lambdaschool.starthere.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "author")
@@ -12,14 +16,19 @@ public class Author {
     private long authorid;
 
     @Column
-    private String lastname;
+    private String lname;
 
     @Column
-    private String firstname;
+    private String fname;
 
-    public Author(String lastname, String firstname) {
-        this.lastname = lastname;
-        this.firstname = firstname;
+    @OneToMany(mappedBy = "author",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("author")
+    private List<Wrote> wrote = new ArrayList<>();
+
+    public Author(String lname, String firstname) {
+        this.lname = lname;
+        this.fname = firstname;
     }
 
     public Author() {
@@ -33,19 +42,19 @@ public class Author {
         this.authorid = authorid;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLname() {
+        return lname;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFname() {
+        return fname;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFname(String fname) {
+        this.fname = fname;
     }
 }

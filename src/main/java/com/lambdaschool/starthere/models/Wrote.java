@@ -14,42 +14,43 @@ public class Wrote extends Auditable implements Serializable {
     @ManyToOne
     @JoinColumn(name = "bookid")
     @JsonIgnoreProperties("wrote")
-    private long bookid;
+    private Book book;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "authorid")
     @JsonIgnoreProperties("wrote")
-    private long authorid;
+    private Author author;
 
-    public Wrote(long bookid, long authorid) {
-        this.bookid = bookid;
-        this.authorid = authorid;
-    }
+
 
     public Wrote() {
     }
 
-    public long getBookid() {
-        return bookid;
+    public Wrote(Book book, Author author) {
+        this.book = book;
+        this.author = author;
     }
 
-    public void setBookid(long bookid) {
-        this.bookid = bookid;
+    public Book getBook() {
+        return book;
     }
 
-
-    public long getAuthorid() {
-        return authorid;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
-    public void setAuthorid(long authorid) {
-        this.authorid = authorid;
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBookid(), getAuthorid());
+        return Objects.hash(getBook(), getAuthor());
     }
 
     @Override
@@ -65,7 +66,7 @@ public class Wrote extends Auditable implements Serializable {
 
         Wrote wrote = (Wrote) o;
 
-        return getBookid() == wrote.getBookid() && getAuthorid() == wrote.getAuthorid();
+        return getBook().equals(wrote.getBook()) && getAuthor().equals(wrote.getAuthor());
     }
 
 }

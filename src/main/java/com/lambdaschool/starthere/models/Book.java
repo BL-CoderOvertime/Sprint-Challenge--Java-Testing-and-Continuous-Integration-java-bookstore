@@ -1,31 +1,41 @@
 package com.lambdaschool.starthere.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "books")
+@Table(name = "book")
 public class Book {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long bookid;
+    private Long bookid;
 
     @Column(nullable = false)
-    private String booktitle;
+    private String title;
 
     @Column(nullable = false)
-    private String bookisbn;
+    private String ISBN;
 
     @Column
-    private String bookcopy;
+    private String copy;
 
     private int sectionid;
 
+
+    @OneToMany(mappedBy = "book",
+            cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("book")
+    private List<Wrote> wrote = new ArrayList<>();
+
     public Book(String booktitle, String bookisbn, String bookcopy, int sectionid) {
-        this.booktitle = booktitle;
-        this.bookisbn = bookisbn;
-        this.bookcopy = bookcopy;
+        this.title = booktitle;
+        this.ISBN = bookisbn;
+        this.copy = bookcopy;
         this.sectionid = sectionid;
     }
 
@@ -40,28 +50,28 @@ public class Book {
         this.bookid = bookid;
     }
 
-    public String getBooktitle() {
-        return booktitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBooktitle(String booktitle) {
-        this.booktitle = booktitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getBookisbn() {
-        return bookisbn;
+    public String getISBN() {
+        return ISBN;
     }
 
-    public void setBookisbn(String bookisbn) {
-        this.bookisbn = bookisbn;
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
     }
 
-    public String getBookcopy() {
-        return bookcopy;
+    public String getCopy() {
+        return copy;
     }
 
-    public void setBookcopy(String bookcopy) {
-        this.bookcopy = bookcopy;
+    public void setCopy(String copy) {
+        this.copy = copy;
     }
 
     public int getSectionid() {
