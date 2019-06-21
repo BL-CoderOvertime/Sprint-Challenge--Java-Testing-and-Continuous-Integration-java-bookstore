@@ -1,6 +1,7 @@
 package com.lambdaschool.starthere.services;
 
 import com.lambdaschool.starthere.models.Book;
+import com.lambdaschool.starthere.models.Wrote;
 import com.lambdaschool.starthere.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,35 @@ public class BookServiceImpl implements BookService{
     @Override
     public Book save(Book book) {
         return bookrepos.save(book);
+    }
+
+    @Override
+    public Book update(Book updateBook, long id) {
+
+        Book currentBook = bookrepos.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
+
+        if (updateBook.getCopy() != null) {
+            currentBook.setCopy(updateBook.getCopy());
+        }
+
+        if (updateBook.getISBN() != null) {
+            currentBook.setISBN(updateBook.getISBN());
+        }
+        currentBook.setSectionid(updateBook.getSectionid());
+
+        if (updateBook.getTitle() != null) {
+            currentBook.setTitle(updateBook.getTitle());
+        }
+
+
+
+        if (currentBook.getWrote().size() > 0) {
+            for (Wrote w : updateBook.getWrote()) {
+                currentBook.getWrote().add(new Wrote(currentBook, w.getAuthor()));
+            }
+        }
+
+        return bookrepos.save(currentBook);
     }
 }

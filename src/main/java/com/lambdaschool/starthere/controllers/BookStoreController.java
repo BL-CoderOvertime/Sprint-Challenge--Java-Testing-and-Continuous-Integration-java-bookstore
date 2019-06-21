@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -58,6 +56,17 @@ public class BookStoreController {
         logger.trace(request.getRequestURI() + " accessed");
 
         bookService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    //PUT /data/books/{id} - updates a books info (Title, Copyright, ISBN) but does NOT have to assign authors to the books.
+
+    @PutMapping(value = "/data/books/{id}")
+    public ResponseEntity<?> updateBook(HttpServletRequest request, @RequestBody Book updateBook, @PathVariable long id)
+    {
+        logger.trace(request.getRequestURI() + " accessed");
+
+        bookService.update(updateBook, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
